@@ -64,9 +64,11 @@ qwerty.addEventListener('click', (e) => {
     button.disabled = true;
     const letterFound = checkLetter(button.textContent);
     if ( letterFound === null ) {
-      let lives = document.querySelectorAll('ol')[0].firstElementChild;
-      lives.style.display = 'none';
-      missed += 1;
+      let live = document.querySelectorAll('ol')[0].firstElementChild;
+      if () {
+        live.style.display = 'none';
+        missed += 1;
+      }
     }
   }
 });

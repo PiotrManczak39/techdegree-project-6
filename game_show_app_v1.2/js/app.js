@@ -2,7 +2,7 @@
 const qwerty = document.getElementById('qwerty');
 const phrase = document.getElementById('phrase');
 const overlay = document.getElementById('overlay');
-const missed = 0;
+let missed = 0;
 const startButton = overlay.lastElementChild;
 const phrases = [
   "two wrongs do not make a right",
@@ -39,27 +39,34 @@ const phraseArray = getRandomPhraseAsArray(phrases);
 addPhraseToDisplay(phraseArray);
 
 function checkLetter(buttonPressed) {
+  let match;
   const letters = document.querySelectorAll('.letter');
   for (let i=0; i<letters.length; i++) {
     const listItem = letters[i];
     if ( listItem.textContent === buttonPressed ) {
       listItem.className = 'show';
-      let match = listItem;
-      return match;
-    } 
+      match = listItem;
+    } else {
+      match = null;
+    }
   }
+  return match;
 }
-
-checkLetter('a');
-
-// qwerty.addEventListener('keyup', (e) => {
-//   const button = e.target;
-//   if ( button.tagName === 'BUTTON' ) {
-//     button.className = 'chosen';
-//     button.setAttribute(disabled);
-//   }
-// });
 
 startButton.addEventListener('click', () => {
     overlay.style.display = 'none';
+});
+
+qwerty.addEventListener('click', (e) => {
+  if ( e.target.tagName == 'BUTTON' ) {
+    const button = e.target;
+    button.className = "chosen";
+    button.disabled = true;
+    const letterFound = checkLetter(button.textContent);
+    if ( letterFound === null ) {
+      let lives = document.querySelectorAll('ol')[0].firstElementChild;
+      lives.style.display = 'none';
+      missed += 1;
+    }
+  }
 });

@@ -2,16 +2,17 @@
 const qwerty = document.getElementById('qwerty');
 const phrase = document.getElementById('phrase');
 const overlay = document.getElementById('overlay');
-let missed = 0;
 const startButton = overlay.lastElementChild;
 const phrases = [
-  "two wrongs do not make a right",
-  "better late than never",
-  "never look a gift horse in the mouth",
-  "god helps those who help themselves",
-  "actions speak louder than words"
+  "Two wrongs do not make a right",
+  "Better late than never",
+  "Never look a gift horse in the mouth",
+  "God helps those who help themselves",
+  "Actions speak louder than words"
 ];
 const list = phrase.getElementsByTagName('ul')[0];
+let missed = 0;
+let letterFound;
 
 function getRandomPhraseAsArray(arr) {
   function randomNumber() {
@@ -26,47 +27,61 @@ function addPhraseToDisplay(arr) {
   for (let i=0; i<arr.length; i++) {
     let li = document.createElement('li');
     li.textContent = arr[i];
-    list.appendChild(li);
     if ( li.textContent === ' ' ) {
       li.className = 'space';
     } else {
       li.className = 'letter';
     }
+    list.appendChild(li);
   }
 }
 
-const phraseArray = getRandomPhraseAsArray(phrases);
-addPhraseToDisplay(phraseArray);
-
 function checkLetter(buttonPressed) {
-  let match;
+  letterFound = false;
   const letters = document.querySelectorAll('.letter');
   for (let i=0; i<letters.length; i++) {
     const listItem = letters[i];
-    if ( listItem.textContent === buttonPressed ) {
-      listItem.className = 'show';
-      match = listItem;
-    } else {
-      match = null;
+    if ( listItem.textContent.toLowerCase() === buttonPressed ) {
+      listItem.className = 'letter show';
+      letterFound = listItem;
     }
   }
-  return match;
+  return letterFound;
+}
+
+function checkWin() {
+  const shownLetters = document.querySelectorAll('.show');
+  const hiddenLetters = document.querySelectorAll('.letter');
+  if ( shownLetters.length === hiddenLetters.length ) {
+    const message = document.querySelector('.overlay .title');
+    overlay.className = 'win';
+    overlay.style.display = 'block';
+    message.textContent = 'You are the Winner!';
+  } else if (missed === 5) {
+    overlay.className = 'lose';
+    overlay.style.display = 'block';
+    message.textContent = 'GAME OVER!';
+  }
 }
 
 startButton.addEventListener('click', () => {
     overlay.style.display = 'none';
 });
 
+const phraseArray = getRandomPhraseAsArray(phrases);
+addPhraseToDisplay(phraseArray);
+
 qwerty.addEventListener('click', (e) => {
   if ( e.target.tagName == 'BUTTON' ) {
     const button = e.target;
     button.className = "chosen";
     button.disabled = true;
-    const letterFound = checkLetter(button.textContent);
-    if ( letterFound === null ) {
+    checkLetter(button.textContent);
+    if ( letterFound === false ) {
       let hearts = document.querySelectorAll('ol .tries img');
       hearts[missed].src = "images/lostHeart.png";
       missed += 1;
     }
   }
+  checkWin();
 });

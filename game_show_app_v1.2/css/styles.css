@@ -42,6 +42,11 @@ h2 {
   margin: 0;
 }
 
+h3 {
+  padding-top: 180px;
+  font-size: 3.5em;
+}
+
 button {
   margin: 6px;
   border: 1px solid transparent;
@@ -95,6 +100,7 @@ button {
 .show {
   color: #000;
   background-color: #76CE82;
+  transition-duration: 5s;
 }
 
 /* Keyboard */

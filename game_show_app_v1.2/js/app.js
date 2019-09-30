@@ -8,7 +8,8 @@ const phrases = [
   "Better late than never",
   "Never look a gift horse in the mouth",
   "God helps those who help themselves",
-  "Actions speak louder than words"
+  "Actions speak louder than words",
+  "Let the force be with you"
 ];
 const list = phrase.getElementsByTagName('ul')[0];
 let missed = 0;
@@ -52,15 +53,18 @@ function checkLetter(buttonPressed) {
 function checkWin() {
   const shownLetters = document.querySelectorAll('.show');
   const hiddenLetters = document.querySelectorAll('.letter');
+  let h3 = document.createElement('h3');
+
   if ( shownLetters.length === hiddenLetters.length ) {
-    const message = document.querySelector('.overlay .title');
     overlay.className = 'win';
     overlay.style.display = 'block';
-    message.textContent = 'You are the Winner!';
+    h3.innerHTML = 'You are a <bold>Winner</bold>, you make me proud!!!';
+    overlay.appendChild(h3);
   } else if (missed === 5) {
     overlay.className = 'lose';
     overlay.style.display = 'block';
-    message.textContent = 'GAME OVER!';
+    h3.innerHTML = 'GAME OVER';
+    overlay.appendChild(h3);
   }
 }
 

@@ -9,7 +9,8 @@ const phrases = [
   "Never look a gift horse in the mouth",
   "God helps those who help themselves",
   "Actions speak louder than words",
-  "Let the force be with you"
+  "Let the force be with you",
+  "Mummy is sitting on the sofa"
 ];
 const list = phrase.getElementsByTagName('ul')[0];
 let missed = 0;

@@ -10,7 +10,10 @@ const phrases = [
   "God helps those who help themselves",
   "Actions speak louder than words",
   "Let the force be with you",
-  "Mummy is sitting on the sofa"
+  "Mummy is sitting on the sofa",
+  "Jack sometimes is naughty",
+  "Mummy likes watching africa movies",
+  "Daddy id a hero"
 ];
 const list = phrase.getElementsByTagName('ul')[0];
 let missed = 0;
